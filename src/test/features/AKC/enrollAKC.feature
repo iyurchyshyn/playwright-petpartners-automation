@@ -11,3 +11,4 @@ Feature: feature1
       | FIRST NAME | LAST NAME | ADDRESS        | APT, SUITE, ETC. | PHONE NUMBER | CARD NUMBER      | EXPIRES | CVC |
       | FnRANDOM   | LnRANDOM  | RANDOM Address | RANDOM Apt       |   1234567891 | 4242424242424242 |    1225 | 123 |
     Then verify the "Congratulations on your enrollment!" is displayed - AKC
+    And print a variable

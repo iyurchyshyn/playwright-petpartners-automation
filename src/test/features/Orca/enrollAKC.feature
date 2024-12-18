@@ -1,4 +1,3 @@
-@tag123
 Feature: feature1
 
   Scenario: scenario1

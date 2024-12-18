@@ -75,5 +75,10 @@ Then('fill the Complete Your Enrollment Page - AKC', { timeout: LONG_TIMEOUT }, 
 
 Then('verify the {string} is displayed - AKC', { timeout: LONG_TIMEOUT }, async function(message: string) {
   await enrollPage.verifySuccessMessage(message);
-  console.log('Success message:', message);
+  await this.set('successMessage', message);
+  await console.log('Success message:', message);
+});
+
+Then('print a variable', { timeout: DEFAULT_TIMEOUT }, async function() {
+  console.log('Success message:', this.get('successMessage'));
 });

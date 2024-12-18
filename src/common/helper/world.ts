@@ -7,8 +7,11 @@ import { BasePage } from '../pages/basePage';
 export interface ICustomWorld extends World {
     browserManager: BrowserManager;
     pageManager?: PageManager;
+    variables: Map<string, any>;
     getPage(): Promise<Page>;
     getPageObject<T extends BasePage>(PageClass: new (page: Page) => T): Promise<T>;
+    set(key: string, value: any): void;
+    get(key: string): any;
     initializePageObjects(): Promise<void>;
     getWorldParameters(): { baseUrl: string; timeout: number; browser: string };
 }
@@ -16,11 +19,21 @@ export interface ICustomWorld extends World {
 export class CustomWorld extends World implements ICustomWorld {
     browserManager: BrowserManager;
     pageManager?: PageManager;
+    variables: Map<string, any>;
 
     constructor(options: IWorldOptions) {
         super(options);
         this.browserManager = BrowserManager.getInstance();
         console.log('World parameters:', options.parameters);
+        this.variables = new Map();
+    }
+    
+    set(key: string, value: any): void {
+        this.variables.set(key, value);
+    }
+
+    get(key: string): any {
+        return this.variables.get(key);
     }
 
     async getPage(): Promise<Page> {
