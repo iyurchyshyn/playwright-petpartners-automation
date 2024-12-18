@@ -1,42 +1,42 @@
 import { Page } from 'playwright';
-import { log } from '../../../common/utils/logger';
-import { ChangeCoverageEntity } from '../../../common/entities/AKC&PPI/ChangeCoverageEntity';
+import { log } from '@utils/logger';
+import { ChangeCoverageEntity } from '@entities/AKC&PPI/ChangeCoverageEntity';
 import { Button, Select, RadioButton, Label } from '../../control';
 
 export class CoveragePage {
   DEFAULT_TIMEOUT = 60 * 1000;
   LONG_TIMEOUT = 120 * 1000;
     // Labels
-    private readonly customizeYourPlanLabel: Label;
-    private readonly descriptionLabel: Label;
+    customizeYourPlanLabel: Label;
+    descriptionLabel: Label;
 
     // Buttons
-    private readonly activateInitial30Day: Button;
-    private readonly activateCertAndContinue: Button;
-    private readonly activateAnnualPlan: Button;
-    private readonly addToCartButton: Button;
-    private readonly emailQuoteButton: Button;
-    private readonly submitButton: Button;
-    private readonly closeButton: Button;
-    private readonly editPetButton: Button;
-    private readonly planToggleButton: Button;
+    activateInitial30Day: Button;
+    activateCertAndContinue: Button;
+    activateAnnualPlan: Button;
+    addToCartButton: Button;
+    emailQuoteButton: Button;
+    submitButton: Button;
+    closeButton: Button;
+    editPetButton: Button;
+    planToggleButton: Button;
 
     // Select Controls
-    private readonly deductibleSelect: Select;
-    private readonly coinsuranceSelect: Select;
-    private readonly annualLimitSelect: Select;
-    private readonly incidentLimitSelect: Select;
+    deductibleSelect: Select;
+    coinsuranceSelect: Select;
+    annualLimitSelect: Select;
+    incidentLimitSelect: Select;
 
     // Radio Controls
-    private readonly examPlusRadio: RadioButton;
-    private readonly breedingCoverageRadio: RadioButton;
-    private readonly supportPlusRadio: RadioButton;
-    private readonly defenderPlusRadio: RadioButton;
-    private readonly defenderRadio: RadioButton;
-    private readonly hereditaryPlusRadio: RadioButton;
+    examPlusRadio: RadioButton;
+    breedingCoverageRadio: RadioButton;
+    supportPlusRadio: RadioButton;
+    defenderPlusRadio: RadioButton;
+    defenderRadio: RadioButton;
+    hereditaryPlusRadio: RadioButton;
 
-    private radioButtonMap: { [key: string]: RadioButton };
-    private selectMap: { [key: string]: Select };
+    radioButtonMap: { [key: string]: RadioButton };
+    selectMap: { [key: string]: Select };
 
     constructor(page: Page) {
         // Initialize Labels

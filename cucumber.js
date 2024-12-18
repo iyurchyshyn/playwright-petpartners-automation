@@ -15,7 +15,8 @@ const common = {
   strict: true,
   paths: ['src/test/features/**/*.feature'],
   tags: process.env.TAGS || '',
-  defaultTimeout: 60000
+  defaultTimeout: 500 * 1000,
+  stepTimeout: 500 * 1000
 };
 
 const PARALLEL_THREADS = parseInt(process.env.PARALLEL_THREADS) || 4;

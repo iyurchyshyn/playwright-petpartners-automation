@@ -2,6 +2,7 @@ import { Page, Locator } from 'playwright';
 import { log } from '../utils/logger';
 
 export class ControlBase {
+    protected readonly SHORT_TIMEOUT = 30 * 1000;   // 30 seconds
     protected readonly DEFAULT_TIMEOUT = 60 * 1000;  // 60 seconds
     protected readonly LONG_TIMEOUT = 120 * 1000;    // 120 seconds
     
@@ -133,9 +134,9 @@ export class ControlBase {
     public async waitForVisible(timeout = this.DEFAULT_TIMEOUT): Promise<void> {
         try {
             await this.locator.waitFor({ state: 'visible', timeout });
-            log.INFO(`Element is clickable: ${this.selector}`);
+            log.INFO(`Element is visible: ${this.selector}`);
         } catch (error) {
-            log.ERROR(`Element is not clickable: ${this.selector}`, { error });
+            log.ERROR(`Element is not visible: ${this.selector}`, { error });
             throw error;
         }
     }
@@ -184,5 +185,21 @@ export class ControlBase {
             log.ERROR(`Failed to get element count: ${this.selector}`, { error });
             throw error;
         }
+    }
+    /**
+     * Waits for specified number of seconds
+     * @param seconds Number of seconds to wait
+     */
+    public async wait(seconds: number): Promise<void> {
+        try {
+            await this.page.waitForTimeout(seconds * 1000);
+            log.INFO(`Waited for ${seconds} seconds`);
+        } catch (error) {
+            log.ERROR(`Failed to wait for ${seconds} seconds`, { error });
+            throw error;
+        }
+    }
+    public getLocator(): Locator {
+        return this.locator;
     }
 }

@@ -1,44 +1,52 @@
 import { Page } from 'playwright';
-import { BasePage } from '../basePage';
-import { log } from '../../utils/logger';
+import { log } from '@utils/logger';
+import { Button, TextBox, Label } from '../../control';
 
-export class CreateAccountPage extends BasePage {
-  private readonly DEFAULT_TIMEOUT = 60 * 1000;
-  private readonly LONG_TIMEOUT = 120 * 1000;
+export class CreateAccountPage {
+    DEFAULT_TIMEOUT = 60 * 1000;
+    LONG_TIMEOUT = 120 * 1000;
 
-  private readonly selectors = {
-    email: "input[name='emailInputControl']",
-    password: "input[placeholder='Password']",
-    confirmPassword: "#confirmRegisterPassword",
-    createAccount: "button:has-text('Create Account')",
-    createAccountHeader: "h2:has-text('Create Account')"
-  };
+    // Labels
+    createAccountLabel: Label;
 
-  constructor(page: Page) {
-    super(page);
-    log.INFO('Initializing CreateAccountPage');
-  }
+    // Inputs
+    emailInput: TextBox;
+    passwordInput: TextBox;
+    confirmPasswordInput: TextBox;
 
-  async createNewAccount(user: string, password: string, confirmPassword: string): Promise<void> {
-    log.INFO('Creating new account', { user });
-    
-    try {
-      await this.fill(this.selectors.email, user);
-      await this.fill(this.selectors.password, password);
-      await this.fill(this.selectors.confirmPassword, confirmPassword);
-      
-      await this.click(this.selectors.createAccount);
-      
-      // Wait for navigation/completion
-      await this.page.waitForSelector(this.selectors.createAccount, { 
-        state: 'hidden',
-        timeout: this.DEFAULT_TIMEOUT 
-      });
-      
-      log.INFO('Successfully created account');
-    } catch (error) {
-      log.ERROR('Error creating account', { error });
-      throw error;
+    // Buttons
+    createAccountButton: Button;
+
+    constructor(page: Page) {
+        // Initialize Labels
+        this.createAccountLabel = new Label(page, "h2:text('Create Account')");
+
+        // Initialize Inputs
+        this.emailInput = new TextBox(page, "input[name='emailInputControl']");
+        this.passwordInput = new TextBox(page, "input[placeholder='Password']");
+        this.confirmPasswordInput = new TextBox(page, "#confirmRegisterPassword");
+
+        // Initialize Buttons
+        this.createAccountButton = new Button(page, "button:has-text('Create Account')");
+
+        log.INFO('Initialized CreateAccountPage');
     }
-  }
+
+    async createNewAccount(user: string, password: string, confirmPassword: string): Promise<void> {
+        log.INFO('Creating new account', { user });
+
+        try {
+            await this.emailInput.setText(user);
+            await this.passwordInput.setText(password);
+            await this.confirmPasswordInput.setText(confirmPassword);
+
+            await this.createAccountButton.click();
+            await this.createAccountButton.isNotDisplayed(this.LONG_TIMEOUT);
+
+            log.INFO('Successfully created account');
+        } catch (error) {
+            log.ERROR('Error creating account', { error });
+            throw error;
+        }
+    }
 }

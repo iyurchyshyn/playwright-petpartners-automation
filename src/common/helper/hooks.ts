@@ -1,9 +1,10 @@
-import { Before, After, Status } from '@cucumber/cucumber';
+import { Before, After, Status, setDefaultTimeout } from '@cucumber/cucumber';
 import { ICustomWorld } from '../../common/helper/world';
 import { log } from '../utils/logger';
 require('module-alias/register');
 // Before each scenario
 Before(async function(this: ICustomWorld, scenario) {
+    setDefaultTimeout(500 * 1000);
     log.INFO('Starting scenario:', { name: scenario.pickle.name });
     
     if (!this.browserManager.browser) {

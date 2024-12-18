@@ -15,8 +15,15 @@ export class CustomSelect extends ControlBase {
         this.optionLabel = optionLabel;
     }
 
-    async setAndSelectValue(value: string): Promise<void> {
+  /**
+    * @param value - Value to set and select
+    * @param waitTime - Wait time in milliseconds before action (default: 2000ms)
+    */
+
+    async setAndSelectValue(value: string, waitTime: number = 2000): Promise<void> {
         try {
+            await this.page.waitForTimeout(waitTime);
+
             log.INFO(`Setting and selecting value: ${value} on ${this.selector}`);
             await this.findControl(CustomSelect.DEFAULT_TIMEOUT);
             
@@ -25,10 +32,8 @@ export class CustomSelect extends ControlBase {
             
             // Click the option with long timeout since it might take time to appear
             const optionSelector = `//${this.optionLabel}[text()='${value}']`;
+            log.INFO(`Selecting option with selector: ${optionSelector}`);
             await this.page.click(optionSelector, { timeout: CustomSelect.LONG_TIMEOUT });
-            
-            // Press Tab with short timeout since it's a simple action
-            await this.locator.press('Tab', { timeout: CustomSelect.SHORT_TIMEOUT });
             
             log.INFO(`Successfully set and selected value: ${value}`);
         } catch (error) {
@@ -36,7 +41,7 @@ export class CustomSelect extends ControlBase {
             throw error;
         }
     }
-
+    
     async setAndSelectContainsValue(value: string): Promise<void> {
         try {
             log.INFO(`Setting and selecting containing value: ${value} on ${this.selector}`);

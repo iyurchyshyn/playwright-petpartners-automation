@@ -1,42 +1,42 @@
 import { Page } from 'playwright';
-import { log } from '../../../common/utils/logger';
-import { GetQuoteEntity } from '../../../common/entities/AKC&PPI/GetQuoteEntity';
-import { Button, Select, TextBox, Label } from '../../control';
+import { log } from '@utils/logger';
+import { GetQuoteEntity } from '@entities/AKC&PPI/GetQuoteEntity';
+import { Button, Select, TextBox, Label, CustomSelect } from '../../control';
 
 export class GetQuotePage {
     DEFAULT_TIMEOUT = 60 * 1000;
     LONG_TIMEOUT = 120 * 1000;
 
     // Labels
-    private readonly yourPetQuoteLabel: Label;
+    yourPetQuoteLabel: Label;
 
     // Inputs
-    private readonly petNameInput: TextBox;
-    private readonly zipCodeInput: TextBox;
-    private readonly petBreedInput: TextBox;
-    private readonly emailAddressInput: TextBox;
-    private readonly registrationNumberInput: TextBox;
-    private readonly zipCodeRegistrationInput: TextBox;
-    private readonly customerSourceInput: TextBox;
+    petNameInput: TextBox;
+    zipCodeInput: TextBox;
+    petBreedInput: CustomSelect;
+    emailAddressInput: TextBox;
+    registrationNumberInput: TextBox;
+    zipCodeRegistrationInput: TextBox;
+    customerSourceInput: TextBox;
 
     // Buttons
-    private readonly dogPetTypeButton: Button;
-    private readonly catPetTypeButton: Button;
-    private readonly resetBreedButton: Button;
-    private readonly yesPetOptionButton: Button;
-    private readonly noPetOptionButton: Button;
-    private readonly chooseCoverageButton: Button;
-    private readonly editZipCodeButton: Button;
-    private readonly yesZipCodeModalButton: Button;
-    private readonly lookUpPetMainButton: Button;
-    private readonly lookUpPetButton: Button;
-    private readonly cancelButton: Button;
+    dogPetTypeButton: Button;
+    catPetTypeButton: Button;
+    resetBreedButton: Button;
+    yesPetOptionButton: Button;
+    noPetOptionButton: Button;
+    chooseCoverageButton: Button;
+    editZipCodeButton: Button;
+    yesZipCodeModalButton: Button;
+    lookUpPetMainButton: Button;
+    lookUpPetButton: Button;
+    cancelButton: Button;
 
     // Select Controls
-    private readonly petAgeSelect: Select;
+    petAgeSelect: Select;
 
     // Label Map
-    private readonly labelMap: Record<string, Label>;
+    labelMap: Record<string, Label>;
 
     constructor(page: Page) {
         // Initialize Labels
@@ -45,7 +45,7 @@ export class GetQuotePage {
         // Initialize Inputs
         this.petNameInput = new TextBox(page, "#name");
         this.zipCodeInput = new TextBox(page, "#postalCode");
-        this.petBreedInput = new TextBox(page, "#breedSearch");
+        this.petBreedInput = new CustomSelect(page, "#breedSearch", 'p');
         this.emailAddressInput = new TextBox(page, "#email");
         this.registrationNumberInput = new TextBox(page, "#reg_no");
         this.zipCodeRegistrationInput = new TextBox(page, "#zipcode");
@@ -101,12 +101,14 @@ export class GetQuotePage {
             }
 
             if (data.petBreed) {
-                await this.petBreedInput.setTextAndEnter(data.petBreed);
+                
+                await this.petBreedInput.setAndSelectValue(data.petBreed);
             }
 
             await this.petAgeSelect.selectValue(data.petAge ?? '');
             await this.emailAddressInput.setText(data.emailAdress ?? '');
 
+            await this.chooseCoverageButton.isEnabled(this.DEFAULT_TIMEOUT);
             await this.chooseCoverageButton.click();
             await this.chooseCoverageButton.isNotDisplayed(this.LONG_TIMEOUT);
 
@@ -142,7 +144,7 @@ export class GetQuotePage {
 
             // Update breed if provided
             if (data.petBreed) {
-                await this.petBreedInput.setTextAndEnter(data.petBreed);
+                await this.petBreedInput.setAndSelectValue(data.petBreed);
             }
 
             // Update age if provided
