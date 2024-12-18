@@ -31,6 +31,7 @@ export class CustomWorld extends World implements ICustomWorld {
 
     set(key: string, value: any): void {
         this.variables.set(key, value);
+        this.attach(`> save the value: [${value}] in [${key}]`, 'text/plain');
         log.INFO('Set variable:', { key, value });
     }
 
