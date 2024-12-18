@@ -32,3 +32,8 @@ $env:NODE_ENV="qas"; $env:TAGS="@tag123"; npm run test:env:parallel
 npm run test:tag:qas "@tag123"
 npm run test:tag:qas:parallel "@tag123"
 ```
+
+### To generate cucumber report
+```sh
+npm run report
+```

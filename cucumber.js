@@ -14,7 +14,7 @@ const common = {
   dryRun: false,
   strict: true,
   paths: ['src/test/features/**/*.feature'],
-  tags: process.env.TAGS || ''  // Add support for tags from environment variable
+  tags: process.env.TAGS || ''
 };
 
 const PARALLEL_THREADS = 4;
@@ -25,8 +25,7 @@ module.exports = {
     ...common,
     format: [
       'progress-bar',
-      `json:reports/cucumber-report.json`,
-      `html:reports/cucumber-report.html`
+      `json:reports/cucumber-report.json`
     ],
     parallel: 1,
     worldParameters: {
@@ -39,10 +38,9 @@ module.exports = {
     ...common,
     format: [
       'progress-bar',
-      `json:reports/parallel-report.json`,
-      `html:reports/parallel-report.html`
+      `json:reports/cucumber-report.json`
     ],
-    parallel: PARALLEL_THREADS || 3,
+    parallel: PARALLEL_THREADS,
     worldParameters: {
       baseUrl: process.env.BASE_URL,
       environment: process.env.ENVIRONMENT,

@@ -1,14 +1,16 @@
 {
   "dependencies": {
-    "@cucumber/cucumber": "^11.1.1",
     "@playwright/test": "^1.49.1",
     "crossenv": "^0.0.2-security",
     "playwright": "^1.49.1",
     "typescript": "^5.7.2"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^11.1.1",
+    "@cucumber/pretty-formatter": "^1.0.1",
     "@types/node": "^22.10.2",
     "cross-env": "^7.0.3",
+    "cucumber-html-reporter": "^7.2.0",
     "dotenv": "^16.4.7",
     "reflect-metadata": "^0.2.2",
     "ts-node": "^10.9.2"
@@ -16,12 +18,12 @@
   "scripts": {
     "test:env": "cross-env NODE_ENV=$NODE_ENV TAGS=$TAGS cucumber-js --profile default",
     "test:env:parallel": "cross-env NODE_ENV=$NODE_ENV TAGS=$TAGS cucumber-js --profile parallel",
-
     "test:tag:qas": "cross-env NODE_ENV=qas cucumber-js --profile default --tags",
     "test:tag:qas:parallel": "cross-env NODE_ENV=qas cucumber-js --profile parallel --tags",
     "test:tag:stg": "cross-env NODE_ENV=qas cucumber-js --profile default --tags",
     "test:tag:stg:parallel": "cross-env NODE_ENV=qas cucumber-js --profile parallel --tags",
     "test:tag:tst": "cross-env NODE_ENV=qas cucumber-js --profile default --tags",
-    "test:tag:tst:parallel": "cross-env NODE_ENV=qas cucumber-js --profile parallel --tags"
+    "test:tag:tst:parallel": "cross-env NODE_ENV=qas cucumber-js --profile parallel --tags",
+    "report": "node report.js"
   }
 }
