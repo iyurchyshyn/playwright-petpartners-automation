@@ -7,7 +7,6 @@ Before(async function(this: ICustomWorld, scenario) {
     log.INFO('Starting scenario:', { name: scenario.pickle.name });
     
     if (!this.browserManager.browser) {
-      log.INFO('Initializing browser in Before hook...');
         await this.browserManager.initializeBrowser();
     }
     await this.initializePageObjects();

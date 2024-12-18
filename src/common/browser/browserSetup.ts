@@ -57,7 +57,6 @@ class BrowserManager {
         }
 
         try {
-            log.INFO('Creating browser context...', { parameters: worldParameters });
             this.context = await this.browser.newContext({ 
                 extraHTTPHeaders: worldParameters ? {
                     'world-parameters': JSON.stringify(worldParameters)
