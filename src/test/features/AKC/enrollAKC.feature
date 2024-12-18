@@ -1,4 +1,4 @@
-@tag123
+@tag123 @test2
 Feature: feature1
 
   Scenario: scenario1

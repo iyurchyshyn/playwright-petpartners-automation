@@ -17,7 +17,7 @@ const common = {
   tags: process.env.TAGS || ''
 };
 
-const PARALLEL_THREADS = 4;
+const PARALLEL_THREADS = parseInt(process.env.PARALLEL_THREADS) || 4;
 const TIMEOUT = 6 * 60 * 1000;
 
 module.exports = {
