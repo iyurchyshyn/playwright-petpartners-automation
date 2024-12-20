@@ -1,11 +1,10 @@
 import { Page } from 'playwright';
-import { BasePage } from '../pages/basePage';
 
 // Type for page object constructors
-type PageConstructor = new (page: Page) => BasePage;
+type PageConstructor<T> = new (page: Page) => T;
 
 export class PageManager {
-    private pages: Map<string, BasePage>;
+    private pages: Map<string, any>;
     private page: Page;
 
     constructor(page: Page) {
@@ -13,9 +12,7 @@ export class PageManager {
         this.page = page;
     }
 
-    async getPage<T extends BasePage>(
-        PageClass: PageConstructor & { new(page: Page): T }
-    ): Promise<T> {
+    async getPage<T>(PageClass: PageConstructor<T>): Promise<T> {
         const pageClassName = PageClass.name;
 
         if (!this.pages.has(pageClassName)) {

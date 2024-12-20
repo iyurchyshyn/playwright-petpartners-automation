@@ -14,7 +14,8 @@ const common = {
   dryRun: false,
   strict: true,
   paths: ['src/test/features/**/*.feature'],
-  tags: process.env.TAGS || ''
+  tags: process.env.TAGS || '',
+  defaultTimeout: 60000
 };
 
 const PARALLEL_THREADS = parseInt(process.env.PARALLEL_THREADS) || 4;

@@ -1,8 +1,8 @@
-@tag123 @test2
+@tag1234 @test2
 Feature: feature1
 
   Scenario: scenario1
-    Given open the AKC Enroll web page
+    Given open the "AKC" Enroll web page
     And fill the Get Quote Page - AKC
       | PET NAME  | ZIP CODE | PET TYPE | PET BREED     | PET AGE | EMAIL ADDRESS         |
       | PETRANDOM |    77433 | dog      | Affenpinscher |       2 | akcRANDOM@yopmail.com |

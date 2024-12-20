@@ -2,7 +2,6 @@ import { setWorldConstructor, World, IWorldOptions } from '@cucumber/cucumber';
 import { Page } from 'playwright';
 import BrowserManager from '../browser/browserSetup';
 import { PageManager } from './pageManager';
-import { BasePage } from '../pages/basePage';
 import { log } from '../utils/logger';
 
 export interface ICustomWorld extends World {
@@ -10,7 +9,7 @@ export interface ICustomWorld extends World {
     pageManager?: PageManager;
     variables: Map<string, any>;
     getPage(): Promise<Page>;
-    getPageObject<T extends BasePage>(PageClass: new (page: Page) => T): Promise<T>;
+    getPageObject<T>(PageClass: new (page: Page) => T): Promise<T>;
     set(key: string, value: any): void;
     get(key: string): any;
     initializePageObjects(): Promise<void>;
@@ -51,7 +50,7 @@ export class CustomWorld extends World implements ICustomWorld {
         return page;
     }
 
-    async getPageObject<T extends BasePage>(PageClass: new (page: Page) => T): Promise<T> {
+    async getPageObject<T>(PageClass: new (page: Page) => T): Promise<T> {
         if (!this.pageManager) {
             const page = await this.getPage();
             this.pageManager = new PageManager(page);

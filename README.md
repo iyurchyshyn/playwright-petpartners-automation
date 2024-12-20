@@ -47,3 +47,9 @@ Remove-Item Env:NODE_ENV
 Remove-Item Env:TAGS
 Remove-Item Env:PARALLEL_THREADS
 ```
+### To add Alias for import in project (@pages, @utils etc)
+```sh
+Add a path of your folder to tsconfig.json ex: "@pages/*": ["./src/common/pages/*"]
+Add a path to package.json ex: "@pages": "src/common/pages"
+Use you import at any file later ex: import { GetQuotePage } from '@pages/AKCPPI/GetQuotePage';
+```

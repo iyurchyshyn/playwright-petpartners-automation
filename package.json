@@ -2,6 +2,7 @@
   "dependencies": {
     "@playwright/test": "^1.49.1",
     "crossenv": "^0.0.2-security",
+    "module-alias": "^2.2.3",
     "playwright": "^1.49.1",
     "typescript": "^5.7.2"
   },
@@ -14,6 +15,16 @@
     "dotenv": "^16.4.7",
     "reflect-metadata": "^0.2.2",
     "ts-node": "^10.9.2"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@utils": "src/common/utils",
+    "@common": "src/common",
+    "@pages": "src/common/pages",
+    "@controls": "src/common/control",
+    "@entities": "src/common/entities",
+    "@features": "src/common/features",
+    "@steps": "src/common/steps"
   },
   "scripts": {
     "test:env": "cross-env NODE_ENV=$NODE_ENV TAGS=$TAGS cucumber-js --profile default",
